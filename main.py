@@ -46,7 +46,6 @@ def plot_graph(G):
 	nx.draw(G, with_labels=True, font_weight='bold')
 	plt.show()
 
-
 #Upto how much time stamp
 upto_tim = 30
 
@@ -79,7 +78,7 @@ Gk = [0]*k
 de = [0]*k
 
 #Setting number of previous dependents
-prev_dependents = 6
+prev_dependents = 3
 
 for i in range(k):
 	temp_lis = [0]*prev_dependents
@@ -114,6 +113,30 @@ prev = 0
 sum = 0
 sz = len(dit)
 
+def mean_sq_error(de):
+	mean_sq = 0
+
+	for itr in de:
+		mean_sq = mean_sq + (rat - itr)*(rat - itr)
+
+	mean_sq = math.sqrt(mean_sq)
+
+	if(mean_sq >= mini_check*sizes[i]):
+		return 1
+		
+	return 0
+
+def mean_ab_error(de):
+	mean_ab = 0
+
+	for itr in de:
+		mean_sq = mean_ab + abs(rat - itr)
+
+	if(mean_sq >= mini_check*sizes[i]):
+		return 1
+		
+	return 0
+
 for x in data:
 
 	if(int(x[0])>upto_tim):
@@ -133,6 +156,8 @@ for x in data:
 	prev = int(x[0])
 
 	flag = 0
+
+	error_list = [0]*k
   
 	for i in range(k):
 
@@ -159,25 +184,25 @@ for x in data:
 				g.add_weighted_edges_from([(uu,vv,1)])
 				score += 1
 
-		rat = score/(sizes[i])
+		rat = score
 
-		mean_sq = 0
-
-		for itr in de[i]:
-			mean_sq = mean_sq + (rat - itr)*(rat - itr)
-
-		mean_sq = math.sqrt(mean_sq)
-
-		if(mean_sq >= mini_check):
+		if(mean_sq_error(de[i])):
 			flag = 1
 
-		de[i].append(rat)
-		de[i].popleft()
+		error_list[i] = rat
+
+	plot_graph(G)
 
 	if(flag):
-		print(de[i])
-		plot_graph(G)
-
+		print("Warning")
+		print(error_list)
+	else:
+		for i in range(k):
+			de[i].append(error_list[i])
+			de[i].popleft()
+	
+	print(de)
+	
 	G.clear()
 
 	for x in dit:
