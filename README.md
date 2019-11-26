@@ -12,3 +12,6 @@ https://docs.google.com/presentation/d/1NyO4xGt2VNVZKxoGkX8bWULv5MLbuZUxRyIRAfDo
 
 ### Colab Project Link
 https://colab.research.google.com/drive/1r0qDCHbCeRTM-j1Vl8AKNYsxDsYdII0i
+
+### Report
+https://docs.google.com/document/d/1N-oyABkPUOpz4OPV-fG61pIBK3Aa7XhhiLEJCrUh9EA/edit?usp=sharing
